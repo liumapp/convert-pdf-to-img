@@ -1,2 +1,10 @@
 # convert-pdf-to-img
-Using PDFBox to convert pdf files to picture , page by page . 
+Using ICEpdf to convert pdf files to picture , page by page . 
+
+## todo list 
+
+* add bus 
+
+* 
+
+
