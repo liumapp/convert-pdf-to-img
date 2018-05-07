@@ -5,6 +5,8 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.concurrent.ExecutorService;
+
 /**
  * @author liumapp
  * @file QueueReceiver.java
@@ -19,7 +21,10 @@ public class QueueReceiver implements InitializingBean {
     private ThreadPools threadPools;
 
     private void receive () {
+        ExecutorService processExecutor = threadPools.getMainPoolExecutor();
+        while(true) {
 
+        }
     }
 
     @Override
