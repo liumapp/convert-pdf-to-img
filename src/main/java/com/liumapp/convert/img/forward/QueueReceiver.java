@@ -1,6 +1,8 @@
 package com.liumapp.convert.img.forward;
 
+import com.liumapp.convert.img.concurrent.ThreadPools;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,9 +15,26 @@ import org.springframework.stereotype.Component;
 @Component
 public class QueueReceiver implements InitializingBean {
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
+    @Autowired
+    private ThreadPools threadPools;
+
+    private void receive () {
 
     }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        Thread receiver = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                receive();
+            }
+        });
+
+        receiver.setDaemon(true);
+        receiver.start();
+    }
+
+
 
 }
