@@ -19,6 +19,10 @@ public class ThreadPools implements InitializingBean {
 
     private ThreadPoolExecutor mainPoolExecutor;
 
+    public ThreadPoolExecutor getMainPoolExecutor() {
+        return mainPoolExecutor;
+    }
+
     @Override
     public void afterPropertiesSet() throws Exception {
         mainPoolExecutor = new ThreadPoolExecutor(10,
