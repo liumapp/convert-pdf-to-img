@@ -19,4 +19,9 @@ public class RabbitConf {
         return new Queue("img-converter-queue");
     }
 
+    @Bean
+    public Queue HelloQueue () {
+        return new Queue("hello");
+    }
+
 }

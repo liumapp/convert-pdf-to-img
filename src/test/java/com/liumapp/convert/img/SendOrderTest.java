@@ -1,6 +1,8 @@
 package com.liumapp.convert.img;
 
+import com.alibaba.fastjson.JSON;
 import com.liumapp.convert.img.config.RabbitConf;
+import com.liumapp.convert.img.pattern.PdfPattern;
 import junit.framework.TestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,6 +29,13 @@ public class SendOrderTest {
     private AmqpTemplate amqpTemplate;
 
     @Test
+    public void testSendPdf () {
+        PdfPattern pdfPattern = new PdfPattern();
+        pdfPattern.setPath("/usr/local/tomcat/project/convert-pdf-to-img/pdf/test.pdf");
+        amqpTemplate.convertAndSend("img-converter-queue", JSON.toJSONString(pdfPattern));
+    }
+
+    @Test
     public void testKeepSend () {
         Thread sendThread = new Thread(new Runnable() {
             @Override
@@ -34,7 +43,7 @@ public class SendOrderTest {
                 while(true) {
                     try {
                         System.out.println("send a msg to queue");
-                        amqpTemplate.convertAndSend("img-converter-queue" ,
+                        amqpTemplate.convertAndSend("hello" ,
                                 "hello , now the time is : " + new Date());
                         Thread.sleep(3000);
                     } catch (InterruptedException e) {
