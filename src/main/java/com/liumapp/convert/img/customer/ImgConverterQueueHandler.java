@@ -1,5 +1,7 @@
 package com.liumapp.convert.img.customer;
 
+import com.alibaba.fastjson.JSON;
+import com.liumapp.convert.img.pattern.PdfPattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
@@ -22,6 +24,8 @@ public class ImgConverterQueueHandler {
     @RabbitHandler
     public void process (String msg) {
         logger.info("get msg from img-converter-queue , the msg is : \n " + msg + "\n");
+        PdfPattern pdfPattern = JSON.parseObject(msg, PdfPattern.class);
+        
     }
 
 }
