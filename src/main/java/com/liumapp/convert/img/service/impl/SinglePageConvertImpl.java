@@ -1,6 +1,7 @@
 package com.liumapp.convert.img.service.impl;
 
 import com.liumapp.convert.img.service.SinglePageConvertService;
+import org.icepdf.core.pobjects.Document;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,6 +14,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class SinglePageConvertImpl implements SinglePageConvertService {
 
+    @Override
+    public void convertFirstPage(Document document) {
 
+    }
 
 }

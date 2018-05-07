@@ -1,5 +1,7 @@
 package com.liumapp.convert.img.service;
 
+import org.icepdf.core.pobjects.Document;
+
 /**
  * @author liumapp
  * @file SinglePageConvertService.java
@@ -9,6 +11,6 @@ package com.liumapp.convert.img.service;
  */
 public interface SinglePageConvertService {
 
-
+    public void convertFirstPage(Document document);
 
 }
