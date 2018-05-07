@@ -2,6 +2,8 @@ package com.liumapp.convert.img.pattern;
 
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
+
 /**
  * @author liumapp
  * @file PdfPattern.java
@@ -10,8 +12,22 @@ import org.springframework.stereotype.Component;
  * @date 5/7/18
  */
 @Component
-public class PdfPattern {
+public class PdfPattern implements Serializable {
 
+    private String path;
 
+    public String getPath() {
+        return path;
+    }
 
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    @Override
+    public String toString() {
+        return "PdfPattern{" +
+                "path='" + path + '\'' +
+                '}';
+    }
 }
