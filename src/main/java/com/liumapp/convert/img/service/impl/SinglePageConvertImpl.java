@@ -43,7 +43,7 @@ public class SinglePageConvertImpl implements SinglePageConvertService {
             //随机数
             Random random = new Random();
             String fileName = "pdfConverter" + System.currentTimeMillis() + "" + random.nextInt(1000)+".jpg";
-            File file = new File(fileName);
+            File file = new File(imgPattern.getPath() + fileName);
             ImageIO.write(rendImage, "png", file);
         } catch (IOException e) {
             e.printStackTrace();

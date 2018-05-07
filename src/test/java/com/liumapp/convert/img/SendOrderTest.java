@@ -1,6 +1,7 @@
 package com.liumapp.convert.img;
 
 import com.alibaba.fastjson.JSON;
+import com.liumapp.convert.img.config.PatternConfig;
 import com.liumapp.convert.img.config.RabbitConf;
 import com.liumapp.convert.img.pattern.PdfPattern;
 import junit.framework.TestCase;
@@ -22,7 +23,9 @@ import java.util.Date;
  * @date 5/7/18
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {Converter.class , RabbitConf.class})
+@SpringBootTest(classes = {Converter.class,
+        RabbitConf.class,
+        PatternConfig.class})
 public class SendOrderTest {
 
     @Autowired
