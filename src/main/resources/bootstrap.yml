@@ -6,3 +6,8 @@ spring:
     password: 123456
 server:
   port: 8080
+
+liumapp:
+  convert:
+    img:
+      path: /usr/local/tomcat/project/convert-pdf-to-img/img/
