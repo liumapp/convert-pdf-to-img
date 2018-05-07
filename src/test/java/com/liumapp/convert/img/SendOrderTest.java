@@ -1,10 +1,13 @@
 package com.liumapp.convert.img;
 
+import com.liumapp.convert.img.config.RabbitConf;
 import junit.framework.TestCase;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
@@ -17,11 +20,13 @@ import java.util.Date;
  * @date 5/7/18
  */
 @RunWith(SpringRunner.class)
+@SpringBootTest(classes = {Converter.class , RabbitConf.class})
 public class SendOrderTest {
 
     @Autowired
     private AmqpTemplate amqpTemplate;
 
+    @Test
     public void testKeepSend () {
         Thread sendThread = new Thread(new Runnable() {
             @Override
