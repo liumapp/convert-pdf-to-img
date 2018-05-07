@@ -7,7 +7,6 @@ Using ICEpdf to convert pdf files to picture , page by page .
 
 * get order from bus , and convert pdf to img .
 
-
 ## start rabbitMQ in docker 
 
 * first of all , we need to set up rabbitMQ's image in docker , just simple run 
