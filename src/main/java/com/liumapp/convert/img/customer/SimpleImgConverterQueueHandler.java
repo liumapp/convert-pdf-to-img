@@ -1,7 +1,7 @@
 package com.liumapp.convert.img.customer;
 
 import com.alibaba.fastjson.JSON;
-import com.liumapp.convert.img.pattern.PdfPattern;
+import com.liumapp.convert.img.pattern.SimplePdfPattern;
 import com.liumapp.convert.img.service.SinglePageConvertService;
 import org.icepdf.core.exceptions.PDFException;
 import org.icepdf.core.exceptions.PDFSecurityException;
@@ -17,30 +17,28 @@ import java.io.IOException;
 
 /**
  * @author liumapp
- * @file ImgConverterQueueHandler.java
+ * @file SimpleImgConverterQueueHandler.java
  * @email liumapp.com@gmail.com
  * @homepage http://www.liumapp.com
  * @date 5/7/18
  */
 @Component
-@RabbitListener(queues = "img-converter-queue")
-public class ImgConverterQueueHandler {
+@RabbitListener(queues = "simple-img-converter-queue")
+public class SimpleImgConverterQueueHandler {
 
-    private static Logger logger = LoggerFactory.getLogger(ImgConverterQueueHandler.class);
+    private static Logger logger = LoggerFactory.getLogger(SimpleImgConverterQueueHandler.class);
 
     @Autowired
     private SinglePageConvertService singlePageConvertService;
 
-
-
     @RabbitHandler
     public void process (String msg) {
         logger.info("get msg from img-converter-queue , the msg is : \n " + msg + "\n");
-        PdfPattern pdfPattern = JSON.parseObject(msg, PdfPattern.class);
+        SimplePdfPattern simplePdfPattern = JSON.parseObject(msg, SimplePdfPattern.class);
         Document document = new Document();
 
         try {
-            document.setFile(pdfPattern.getPath());
+            document.setFile(simplePdfPattern.getPath());
         } catch (PDFException e) {
             e.printStackTrace();
         } catch (PDFSecurityException e) {

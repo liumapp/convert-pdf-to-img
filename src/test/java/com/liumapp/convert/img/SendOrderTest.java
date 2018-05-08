@@ -3,7 +3,7 @@ package com.liumapp.convert.img;
 import com.alibaba.fastjson.JSON;
 import com.liumapp.convert.img.config.PatternConfig;
 import com.liumapp.convert.img.config.RabbitConf;
-import com.liumapp.convert.img.pattern.PdfPattern;
+import com.liumapp.convert.img.pattern.SimplePdfPattern;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.amqp.core.AmqpTemplate;
@@ -31,9 +31,9 @@ public class SendOrderTest {
 
     @Test
     public void testSendPdf () {
-        PdfPattern pdfPattern = new PdfPattern();
-        pdfPattern.setPath("/usr/local/tomcat/project/convert-pdf-to-img/pdf/test.pdf");
-        amqpTemplate.convertAndSend("img-converter-queue", JSON.toJSONString(pdfPattern));
+        SimplePdfPattern simplePdfPattern = new SimplePdfPattern();
+        simplePdfPattern.setPath("/usr/local/tomcat/project/convert-pdf-to-img/pdf/test.pdf");
+        amqpTemplate.convertAndSend("simple-img-converter-queue", JSON.toJSONString(simplePdfPattern));
     }
 
     @Test

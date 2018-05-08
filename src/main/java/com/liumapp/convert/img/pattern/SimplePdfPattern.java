@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @date 5/7/18
  */
 @Component
-public class PdfPattern implements Serializable {
+public class SimplePdfPattern implements Serializable {
 
     /**
      * pdf file path

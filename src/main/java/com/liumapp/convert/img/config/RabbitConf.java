@@ -16,7 +16,7 @@ public class RabbitConf {
 
     @Bean
     public Queue ImgConverterQueue () {
-        return new Queue("img-converter-queue");
+        return new Queue("simple-img-converter-queue");
     }
 
     @Bean
