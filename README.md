@@ -45,4 +45,8 @@ Using ICEpdf to convert pdf files to picture , page by page .
     
     the username is "springcloud" , and the password is "123456".    
 
+## run pdf to img
 
+* simple run junit test , and you can find how it works . 
+
+    plz config both yml files in main resouces and test resources . 
