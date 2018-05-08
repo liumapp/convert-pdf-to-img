@@ -31,7 +31,7 @@ public class MultyPageConvertImpl extends ImgFileSaveAbstract implements MultyPa
      * @param document
      */
     @Override
-    public void convertMultyPage(Document document) {
+    public boolean convertMultyPage(Document document) {
         BufferedImage image = null;
         //缩放比例
         float scale = 2.5f;
@@ -45,11 +45,13 @@ public class MultyPageConvertImpl extends ImgFileSaveAbstract implements MultyPa
                 ImageIO.write(rendImage, "png", createFile());
             } catch (Exception e) {
                 e.printStackTrace();
+                return false;
             }
             image.flush();
         }
         document.dispose();
         System.gc();
+        return true;
     }
 
 }

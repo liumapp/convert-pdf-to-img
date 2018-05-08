@@ -11,6 +11,6 @@ import org.icepdf.core.pobjects.Document;
  */
 public interface MultyPageConvertService {
 
-    public void convertMultyPage (Document document);
+    public boolean convertMultyPage (Document document);
 
 }

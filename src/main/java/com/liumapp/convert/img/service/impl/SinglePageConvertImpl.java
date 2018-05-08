@@ -26,7 +26,7 @@ import java.util.Random;
 public class SinglePageConvertImpl extends ImgFileSaveAbstract implements SinglePageConvertService {
 
     @Override
-    public void convertFirstPage(Document document) {
+    public boolean convertFirstPage(Document document) {
         BufferedImage image = null;
         //缩放比例
         float scale = 2.5f;
@@ -39,10 +39,12 @@ public class SinglePageConvertImpl extends ImgFileSaveAbstract implements Single
             ImageIO.write(rendImage, "png", createFile());
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
         image.flush();
         document.dispose();
         System.gc();
+        return true;
     }
 
 }

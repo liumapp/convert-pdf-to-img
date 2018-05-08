@@ -11,6 +11,6 @@ import org.icepdf.core.pobjects.Document;
  */
 public interface SinglePageConvertService {
 
-    public void convertFirstPage(Document document);
+    public boolean convertFirstPage(Document document);
 
 }
