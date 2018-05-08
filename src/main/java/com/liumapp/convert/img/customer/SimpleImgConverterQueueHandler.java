@@ -44,9 +44,6 @@ public class SimpleImgConverterQueueHandler implements PageConvertStrategy {
     @Autowired
     private AmqpTemplate amqpTemplate;
 
-    @Autowired
-    private ImgConvertResultPattern imgConvertResultPattern;
-
     @RabbitHandler
     public void process (String msg) {
         logger.info("get msg from simple-img-converter-queue , the msg is : \n " + msg + "\n");
@@ -69,6 +66,7 @@ public class SimpleImgConverterQueueHandler implements PageConvertStrategy {
         threadPoolExecutor.submit(new Runnable() {
             @Override
             public void run() {
+                ImgConvertResultPattern imgConvertResultPattern = new ImgConvertResultPattern();
                 logger.info("begin single page convert in Simple img converter at " + new Date());
                 boolean result = singlePageConvertService.convertFirstPage(document);
                 if (result) {
@@ -85,27 +83,17 @@ public class SimpleImgConverterQueueHandler implements PageConvertStrategy {
 
     @Override
     public void multyPageConvert(Document document) {
-        ThreadPoolExecutor threadPoolExecutor = threadPools.getThreadPoolExecutor();
-        threadPoolExecutor.submit(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    logger.info("begin multy page convert in Simple img converter at " + new Date());
-                    boolean result = multyPageConvertService.convertMultyPage(document);
-                    if (result) {
-                        imgConvertResultPattern.setResult(true);
-                        imgConvertResultPattern.setMsg("simple convert the multy page to img success");
-                    } else {
-                        imgConvertResultPattern.setResult(false);
-                        imgConvertResultPattern.setMsg("simple convert the multy page to img failed");
-                    }
-                    amqpTemplate.convertAndSend("img-converter-result-queue", JSON.toJSONString(imgConvertResultPattern));
-                    Thread.sleep(15000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        logger.info("begin multy page convert in Simple img converter at " + new Date());
+        ImgConvertResultPattern imgConvertResultPattern = new ImgConvertResultPattern();
+        boolean result = multyPageConvertService.convertMultyPage(document);
+        if (result) {
+            imgConvertResultPattern.setResult(true);
+            imgConvertResultPattern.setMsg("simple convert the multy page to img success");
+        } else {
+            imgConvertResultPattern.setResult(false);
+            imgConvertResultPattern.setMsg("simple convert the multy page to img failed");
+        }
+        amqpTemplate.convertAndSend("img-converter-result-queue", JSON.toJSONString(imgConvertResultPattern));
     }
 
 

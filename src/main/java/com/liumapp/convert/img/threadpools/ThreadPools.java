@@ -25,8 +25,8 @@ public class ThreadPools implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        threadPoolExecutor = new ThreadPoolExecutor(8,
-                24,
+        threadPoolExecutor = new ThreadPoolExecutor(4,
+                8,
                 0L,
                 TimeUnit.MILLISECONDS,
                 new LinkedBlockingDeque<Runnable>());

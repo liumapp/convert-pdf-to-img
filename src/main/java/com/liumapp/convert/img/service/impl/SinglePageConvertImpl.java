@@ -42,7 +42,6 @@ public class SinglePageConvertImpl extends ImgFileSaveAbstract implements Single
             return false;
         }
         image.flush();
-        document.dispose();
         System.gc();
         return true;
     }

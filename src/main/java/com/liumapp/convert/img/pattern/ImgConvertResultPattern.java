@@ -11,7 +11,6 @@ import java.io.Serializable;
  * @homepage http://www.liumapp.com
  * @date 5/8/18
  */
-@Component
 public class ImgConvertResultPattern implements Serializable {
 
     public boolean result;
