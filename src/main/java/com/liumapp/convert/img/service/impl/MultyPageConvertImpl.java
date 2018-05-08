@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class MultyPageConvertImpl implements MultyPageConvertService {
 
     @Override
-    public void ConvertMultyPage(Document document) {
+    public void convertMultyPage(Document document) {
 
     }
 

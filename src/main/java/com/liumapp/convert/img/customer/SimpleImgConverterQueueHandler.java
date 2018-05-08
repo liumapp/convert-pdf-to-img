@@ -2,6 +2,7 @@ package com.liumapp.convert.img.customer;
 
 import com.alibaba.fastjson.JSON;
 import com.liumapp.convert.img.pattern.SimplePdfPattern;
+import com.liumapp.convert.img.service.MultyPageConvertService;
 import com.liumapp.convert.img.service.SinglePageConvertService;
 import com.liumapp.convert.img.strategy.PageConvertStrategy;
 import com.liumapp.convert.img.threadpools.ThreadPools;
@@ -13,6 +14,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
@@ -30,6 +32,9 @@ public class SimpleImgConverterQueueHandler implements PageConvertStrategy {
 
     @Autowired
     private SinglePageConvertService singlePageConvertService;
+
+    @Autowired
+    private MultyPageConvertService multyPageConvertService;
 
     @Autowired
     private ThreadPools threadPools;
@@ -56,6 +61,7 @@ public class SimpleImgConverterQueueHandler implements PageConvertStrategy {
         threadPoolExecutor.submit(new Runnable() {
             @Override
             public void run() {
+                logger.info("begin single page convert in Simple img converter at " + new Date());
                 singlePageConvertService.convertFirstPage(document);
             }
         });
@@ -67,7 +73,8 @@ public class SimpleImgConverterQueueHandler implements PageConvertStrategy {
         threadPoolExecutor.submit(new Runnable() {
             @Override
             public void run() {
-
+                logger.info("begin multy page convert in Simple img converter at " + new Date());
+                multyPageConvertService.convertMultyPage(document);
             }
         });
     }
