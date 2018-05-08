@@ -9,6 +9,7 @@ import com.liumapp.convert.img.threadpools.ThreadPools;
 import org.icepdf.core.pobjects.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,9 @@ public class SimpleImgConverterQueueHandler implements PageConvertStrategy {
     @Autowired
     private ThreadPools threadPools;
 
+    @Autowired
+    private AmqpTemplate amqpTemplate;
+
     @RabbitHandler
     public void process (String msg) {
         logger.info("get msg from simple-img-converter-queue , the msg is : \n " + msg + "\n");
@@ -62,7 +66,10 @@ public class SimpleImgConverterQueueHandler implements PageConvertStrategy {
             @Override
             public void run() {
                 logger.info("begin single page convert in Simple img converter at " + new Date());
-                singlePageConvertService.convertFirstPage(document);
+                boolean result = singlePageConvertService.convertFirstPage(document);
+                if (result) {
+                    amqpTemplate.convertAndSend("img-converter-result-queue", "single page convert success");
+                }
             }
         });
     }
