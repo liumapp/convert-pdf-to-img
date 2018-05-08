@@ -25,13 +25,19 @@ public abstract class ImgFileSaveAbstract implements ImgFileSaveStrategy {
     public File createFile() {
         Random random = new Random();
         String fileName = "pdfConverter" + System.currentTimeMillis() + "" + random.nextInt(1000)+".jpg";
-        File file = new File(imgPattern.getPath() + useDatePath() + fileName);
+        String path = imgPattern.getPath() + useDatePath() + "/";
+
+        File dir = new File(path);
+        if (!dir.exists() && !dir.isDirectory())
+            dir.mkdir();
+
+        File file = new File(imgPattern.getPath() + useDatePath() + "/" + fileName);
         return file;
     }
 
     @Override
     public String useDatePath() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-mm-dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
         Date date = new Date();
         return dateFormat.format(date);
     }

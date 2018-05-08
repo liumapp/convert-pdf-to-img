@@ -70,13 +70,14 @@ public class SimpleImgConverterQueueHandler implements PageConvertStrategy {
     @Override
     public void multyPageConvert(Document document) {
         ThreadPoolExecutor threadPoolExecutor = threadPools.getThreadPoolExecutor();
-        threadPoolExecutor.submit(new Runnable() {
-            @Override
-            public void run() {
-                logger.info("begin multy page convert in Simple img converter at " + new Date());
-                multyPageConvertService.convertMultyPage(document);
-            }
-        });
+//        multyPageConvertService.convertMultyPage(document);
+//        threadPoolExecutor.submit(new Runnable() {
+//            @Override
+//            public void run() {
+//                logger.info("begin multy page convert in Simple img converter at " + new Date());
+//                multyPageConvertService.convertMultyPage(document);
+//            }
+//        });
     }
 
 
