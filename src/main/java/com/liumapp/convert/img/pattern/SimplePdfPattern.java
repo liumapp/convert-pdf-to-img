@@ -33,4 +33,5 @@ public class SimplePdfPattern implements Serializable {
                 "path='" + path + '\'' +
                 '}';
     }
+
 }
