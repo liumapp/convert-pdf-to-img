@@ -14,6 +14,9 @@ import java.io.Serializable;
 @Component
 public class PdfPattern implements Serializable {
 
+    /**
+     * pdf file path
+     */
     private String path;
 
     public String getPath() {
