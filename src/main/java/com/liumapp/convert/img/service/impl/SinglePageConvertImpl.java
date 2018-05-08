@@ -1,5 +1,6 @@
 package com.liumapp.convert.img.service.impl;
 
+import com.liumapp.convert.img.file.ImgFileSaveAbstract;
 import com.liumapp.convert.img.pattern.ImgPattern;
 import com.liumapp.convert.img.service.SinglePageConvertService;
 import org.icepdf.core.pobjects.Document;
@@ -22,30 +23,21 @@ import java.util.Random;
  * @date 5/7/18
  */
 @Service
-public class SinglePageConvertImpl implements SinglePageConvertService {
-
-    @Autowired
-    private ImgPattern imgPattern;
+public class SinglePageConvertImpl extends ImgFileSaveAbstract implements SinglePageConvertService {
 
     @Override
     public void convertFirstPage(Document document) {
         BufferedImage image = null;
-        float scale = 2.5f;//缩放比例
-        float rotation = 0f;//旋转角度
+        //缩放比例
+        float scale = 2.5f;
+        //旋转角度
+        float rotation = 0f;
         try {
             image = (BufferedImage)
                     document.getPageImage(0, GraphicsRenderingHints.SCREEN, org.icepdf.core.pobjects.Page.BOUNDARY_CROPBOX, rotation, scale);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        RenderedImage rendImage = image;
-        try {
-            //随机数
-            Random random = new Random();
-            String fileName = "pdfConverter" + System.currentTimeMillis() + "" + random.nextInt(1000)+".jpg";
-            File file = new File(imgPattern.getPath() + fileName);
-            ImageIO.write(rendImage, "png", file);
-        } catch (IOException e) {
+            RenderedImage rendImage = image;
+            ImageIO.write(rendImage, "png", createFile());
+        } catch (Exception e) {
             e.printStackTrace();
         }
         image.flush();

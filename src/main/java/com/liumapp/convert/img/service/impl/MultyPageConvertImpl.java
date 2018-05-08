@@ -33,9 +33,10 @@ public class MultyPageConvertImpl extends ImgFileSaveAbstract implements MultyPa
     @Override
     public void convertMultyPage(Document document) {
         BufferedImage image = null;
-        float scale = 2.5f;//缩放比例
-        float rotation = 0f;//旋转角度
-
+        //缩放比例
+        float scale = 2.5f;
+        //旋转角度
+        float rotation = 0f;
         for (int i = 1; i < document.getNumberOfPages(); i++) {
             try {
                 image = (BufferedImage)
@@ -47,7 +48,6 @@ public class MultyPageConvertImpl extends ImgFileSaveAbstract implements MultyPa
             }
             image.flush();
         }
-
         document.dispose();
         System.gc();
     }
