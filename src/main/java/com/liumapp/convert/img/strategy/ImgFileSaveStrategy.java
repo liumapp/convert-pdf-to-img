@@ -11,7 +11,7 @@ import java.io.File;
  */
 public interface ImgFileSaveStrategy {
 
-    public File createFile (String path);
+    public File createFile ();
 
     public String useDatePath ();
 

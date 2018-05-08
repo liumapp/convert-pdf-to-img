@@ -1,7 +1,9 @@
 package com.liumapp.convert.img.service.impl;
 
+import com.liumapp.convert.img.file.ImgFileSaveAbstract;
 import com.liumapp.convert.img.pattern.ImgPattern;
 import com.liumapp.convert.img.service.MultyPageConvertService;
+import com.liumapp.convert.img.strategy.ImgFileSaveStrategy;
 import org.icepdf.core.pobjects.Document;
 import org.icepdf.core.util.GraphicsRenderingHints;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +24,7 @@ import java.util.Random;
  * @date 5/7/18
  */
 @Service
-public class MultyPageConvertImpl implements MultyPageConvertService {
+public class MultyPageConvertImpl extends ImgFileSaveAbstract implements MultyPageConvertService {
 
     @Autowired
     private ImgPattern imgPattern;
@@ -47,10 +49,7 @@ public class MultyPageConvertImpl implements MultyPageConvertService {
             RenderedImage rendImage = image;
             try {
                 //随机数
-                Random random = new Random();
-                String fileName = "pdfConverter" + System.currentTimeMillis() + "" + random.nextInt(1000)+".jpg";
-                File file = new File(imgPattern.getPath() + fileName);
-                ImageIO.write(rendImage, "png", file);
+                ImageIO.write(rendImage, "png", createFile());
             } catch (IOException e) {
                 e.printStackTrace();
             }
