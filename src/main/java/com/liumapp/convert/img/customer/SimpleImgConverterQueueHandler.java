@@ -89,16 +89,21 @@ public class SimpleImgConverterQueueHandler implements PageConvertStrategy {
         threadPoolExecutor.submit(new Runnable() {
             @Override
             public void run() {
-                logger.info("begin multy page convert in Simple img converter at " + new Date());
-                boolean result = multyPageConvertService.convertMultyPage(document);
-                if (result) {
-                    imgConvertResultPattern.setResult(true);
-                    imgConvertResultPattern.setMsg("simple convert the multy page to img success");
-                } else {
-                    imgConvertResultPattern.setResult(false);
-                    imgConvertResultPattern.setMsg("simple convert the multy page to img failed");
+                try {
+                    logger.info("begin multy page convert in Simple img converter at " + new Date());
+                    boolean result = multyPageConvertService.convertMultyPage(document);
+                    if (result) {
+                        imgConvertResultPattern.setResult(true);
+                        imgConvertResultPattern.setMsg("simple convert the multy page to img success");
+                    } else {
+                        imgConvertResultPattern.setResult(false);
+                        imgConvertResultPattern.setMsg("simple convert the multy page to img failed");
+                    }
+                    amqpTemplate.convertAndSend("img-converter-result-queue", JSON.toJSONString(imgConvertResultPattern));
+                    Thread.sleep(15000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-                amqpTemplate.convertAndSend("img-converter-result-queue", JSON.toJSONString(imgConvertResultPattern));
             }
         });
     }
