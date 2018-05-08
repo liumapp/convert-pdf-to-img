@@ -26,9 +26,6 @@ import java.util.Random;
 @Service
 public class MultyPageConvertImpl extends ImgFileSaveAbstract implements MultyPageConvertService {
 
-    @Autowired
-    private ImgPattern imgPattern;
-
     /**
      * begin multy page convert from the second page .
      * @param document
@@ -43,14 +40,9 @@ public class MultyPageConvertImpl extends ImgFileSaveAbstract implements MultyPa
             try {
                 image = (BufferedImage)
                         document.getPageImage(i, GraphicsRenderingHints.SCREEN, org.icepdf.core.pobjects.Page.BOUNDARY_CROPBOX, rotation, scale);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            RenderedImage rendImage = image;
-            try {
-                //随机数
+                RenderedImage rendImage = image;
                 ImageIO.write(rendImage, "png", createFile());
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             image.flush();
