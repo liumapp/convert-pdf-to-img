@@ -31,6 +31,8 @@ public class ImgConverterQueueHandler {
     @Autowired
     private SinglePageConvertService singlePageConvertService;
 
+
+
     @RabbitHandler
     public void process (String msg) {
         logger.info("get msg from img-converter-queue , the msg is : \n " + msg + "\n");

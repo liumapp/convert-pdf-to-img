@@ -3,7 +3,9 @@ package com.liumapp.convert.img.threadpools;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
+import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author liumapp
@@ -23,7 +25,11 @@ public class ThreadPools implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        
+        threadPoolExecutor = new ThreadPoolExecutor(8,
+                16,
+                0L,
+                TimeUnit.MILLISECONDS,
+                new LinkedBlockingDeque<Runnable>());
     }
 
 }
