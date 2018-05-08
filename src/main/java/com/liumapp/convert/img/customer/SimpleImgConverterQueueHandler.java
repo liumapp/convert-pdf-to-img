@@ -3,6 +3,7 @@ package com.liumapp.convert.img.customer;
 import com.alibaba.fastjson.JSON;
 import com.liumapp.convert.img.pattern.SimplePdfPattern;
 import com.liumapp.convert.img.service.SinglePageConvertService;
+import com.liumapp.convert.img.strategy.PageConvertStrategy;
 import com.liumapp.convert.img.threadpools.ThreadPools;
 import org.icepdf.core.pobjects.Document;
 import org.slf4j.Logger;
@@ -23,7 +24,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  */
 @Component
 @RabbitListener(queues = "simple-img-converter-queue")
-public class SimpleImgConverterQueueHandler {
+public class SimpleImgConverterQueueHandler implements PageConvertStrategy {
 
     private static Logger logger = LoggerFactory.getLogger(SimpleImgConverterQueueHandler.class);
 
@@ -49,7 +50,8 @@ public class SimpleImgConverterQueueHandler {
         multyPageConvert(document);
     }
 
-    private void singlePageConvert (Document document) {
+    @Override
+    public void singlePageConvert(Document document) {
         ThreadPoolExecutor threadPoolExecutor = threadPools.getThreadPoolExecutor();
         threadPoolExecutor.submit(new Runnable() {
             @Override
@@ -59,7 +61,8 @@ public class SimpleImgConverterQueueHandler {
         });
     }
 
-    private void multyPageConvert (Document document) {
+    @Override
+    public void multyPageConvert(Document document) {
         ThreadPoolExecutor threadPoolExecutor = threadPools.getThreadPoolExecutor();
         threadPoolExecutor.submit(new Runnable() {
             @Override
@@ -68,5 +71,6 @@ public class SimpleImgConverterQueueHandler {
             }
         });
     }
+
 
 }

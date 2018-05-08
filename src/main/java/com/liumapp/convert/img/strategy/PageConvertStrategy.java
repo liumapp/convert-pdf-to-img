@@ -1,5 +1,7 @@
 package com.liumapp.convert.img.strategy;
 
+import org.icepdf.core.pobjects.Document;
+
 /**
  * @author liumapp
  * @file PageConvertStrategy.java
@@ -9,6 +11,8 @@ package com.liumapp.convert.img.strategy;
  */
 public interface PageConvertStrategy {
 
+    public void singlePageConvert (Document document);
 
+    public void multyPageConvert (Document document);
 
 }
