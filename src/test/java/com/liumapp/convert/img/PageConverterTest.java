@@ -6,6 +6,8 @@ import com.liumapp.qtools.file.basic.FileTool;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.LinkedList;
+
 /**
  * file PageConverterTest.java
  * author liumapp
@@ -24,9 +26,9 @@ public class PageConverterTest {
         singlePageConverter.setSourcePdfPath(dataPath + "/pdf/test.pdf");
         singlePageConverter.setOutputPath(dataPath + "/pic/first/");
         singlePageConverter.setPageNumber(0);// 0 is the first page
-        if (singlePageConverter.convert()) {
-            System.out.println("savename is : " + singlePageConverter.getSaveName());
-        }
+        boolean result = singlePageConverter.convert();
+        Assert.assertEquals(true, result);
+        System.out.println("savename is : " + singlePageConverter.getSaveName());
         Assert.assertEquals(true, FileTool.isFileExists(dataPath + "/pic/first/" + singlePageConverter.getSaveName()));
     }
 
@@ -35,7 +37,14 @@ public class PageConverterTest {
         AllPageConverter allPageConverter = new AllPageConverter();
         allPageConverter.setSourcePdfPath(dataPath + "/pdf/test.pdf");
         allPageConverter.setOutputPath(dataPath + "/pic/all/");
-        allPageConverter.convert();
+        boolean result = allPageConverter.convert();
+        Assert.assertEquals(true, result);
+        LinkedList<String> names = allPageConverter.getSavenames();
+        System.out.println("savename is : ");
+        for (int i = 0; i < names.size(); i++) {
+            System.out.println(names.get(i));
+            Assert.assertEquals(true, FileTool.isFileExists(dataPath + "/pic/all/" + names.get(i)));
+        }
     }
 
 }

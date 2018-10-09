@@ -1,52 +1,40 @@
 # convert-pdf-to-img
-Using ICEpdf to convert pdf files to picture , page by page . 
 
-## todo list 
+## how to use
 
-* add bus 
-
-* get order from bus , and convert pdf to img .
-
-## start rabbitMQ in docker 
-
-* first of all , we need to set up rabbitMQ's image in docker , just simple run 
-
-        docker pull rabbitmq:3-management
-        
-    or you can simple use ./build-image.sh
+use maven to import :
     
-    plz make sure you have docker in your machine . 
+    <dependency>
+        <groupId>com.liumapp.convert.img</groupId>
+        <artifactId>convert-pdf-to-img</artifactId>
+        <version>v1.1.0</version>
+    </dependency>
     
-* secondly , we need to make a container for rabbitMQ in docker , i've make this done in docker-compose.yml
+code like this :
 
-      rabbitmq:
-        image: rabbitmq:3-management
-        restart: always
-        container_name: rabbitmq
-        hostname: rabbitmq
-        environment:
-          RABBITMQ_DEFAULT_USER: "springcloud"
-          RABBITMQ_DEFAULT_PASS: "123456"
-        ports:
-          - "5672:5672"
-          - "15672:15672"
-
-    you can update the values of environment.
+        @Test
+        public void convertSinglePage () throws Exception {
+            SinglePageConverter singlePageConverter = new SinglePageConverter();
+            singlePageConverter.setSourcePdfPath(dataPath + "/pdf/test.pdf");
+            singlePageConverter.setOutputPath(dataPath + "/pic/first/");
+            singlePageConverter.setPageNumber(0);// 0 is the first page
+            boolean result = singlePageConverter.convert();
+            Assert.assertEquals(true, result);
+            System.out.println("savename is : " + singlePageConverter.getSaveName());
+            Assert.assertEquals(true, FileTool.isFileExists(dataPath + "/pic/first/" + singlePageConverter.getSaveName()));
+        }
     
-    plz pay attention , this is the simplest configuration. 
-    
-    I do not recommend using it in a production environment.
-    
-* when you build your images , simply run 
-
-        docker-compose up -d 
-    
-    then you can go to your browser , and visit http://localhost:15672 to open rabbitMQ's web panel.
-    
-    the username is "springcloud" , and the password is "123456".    
-
-## run pdf to img
-
-* simple run junit test , and you can find how it works . 
-
-    plz config both yml files in main resouces and test resources . 
+        @Test
+        public void convertAllPage () throws Exception {
+            AllPageConverter allPageConverter = new AllPageConverter();
+            allPageConverter.setSourcePdfPath(dataPath + "/pdf/test.pdf");
+            allPageConverter.setOutputPath(dataPath + "/pic/all/");
+            boolean result = allPageConverter.convert();
+            Assert.assertEquals(true, result);
+            LinkedList<String> names = allPageConverter.getSavenames();
+            System.out.println("savename is : ");
+            for (int i = 0; i < names.size(); i++) {
+                System.out.println(names.get(i));
+                Assert.assertEquals(true, FileTool.isFileExists(dataPath + "/pic/all/" + names.get(i)));
+            }
+        }    
