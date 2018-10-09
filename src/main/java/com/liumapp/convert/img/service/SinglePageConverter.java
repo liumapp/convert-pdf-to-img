@@ -13,9 +13,22 @@ import com.liumapp.convert.img.config.ConverterParams;
  */
 public class SinglePageConverter extends ConverterParams implements PageConverter {
 
+    private Integer pageNumber;
+
+    public SinglePageConverter() {
+    }
+
     @Override
     public boolean convert() {
         return false;
     }
 
+    public Integer getPageNumber() {
+        return pageNumber;
+    }
+
+    public SinglePageConverter setPageNumber(Integer pageNumber) {
+        this.pageNumber = pageNumber;
+        return this;
+    }
 }

@@ -1,5 +1,6 @@
 package com.liumapp.convert.img;
 
+import com.liumapp.convert.img.service.AllPageConverter;
 import com.liumapp.convert.img.service.SinglePageConverter;
 import org.junit.Test;
 
@@ -13,22 +14,23 @@ import org.junit.Test;
  */
 public class PageConverterTest {
 
-
-
-    private String sourcePdfPath = "/usr/local/tomcat/project/convert-pdf-to-img/pdf/test.pdf";
-
-    private String outputPath = "/usr/local/tomcat/project/convert-pdf-to-img/img/";
+    private String dataPath = "/usr/local/tomcat/project/convert-pdf-to-img/data/";
 
     @Test
     public void convertSinglePage () {
         SinglePageConverter singlePageConverter = new SinglePageConverter();
-        singlePageConverter.setSourcePdfPath(sourcePdfPath);
-        singlePageConverter.setOutputPath(outputPath);
+        singlePageConverter.setSourcePdfPath(dataPath + "/pdf/test.pdf");
+        singlePageConverter.setOutputPath(dataPath + "/pic/first/");
+        singlePageConverter.setPageNumber(0);
+        singlePageConverter.convert();
     }
 
     @Test
     public void convertAllPage () {
-
+        AllPageConverter allPageConverter = new AllPageConverter();
+        allPageConverter.setSourcePdfPath(dataPath + "/pdf/test.pdf");
+        allPageConverter.setOutputPath(dataPath + "/pic/all/");
+        allPageConverter.convert();
     }
 
 }
