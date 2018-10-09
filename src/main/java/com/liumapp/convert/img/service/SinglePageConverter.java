@@ -1,6 +1,7 @@
 package com.liumapp.convert.img.service;
 
 import com.liumapp.convert.img.PageConverter;
+import com.liumapp.convert.img.config.ConverterParams;
 
 /**
  * file SinglePageConverter.java
@@ -10,7 +11,7 @@ import com.liumapp.convert.img.PageConverter;
  * homepage http://www.liumapp.com
  * date 2018/10/9
  */
-public class SinglePageConverter implements PageConverter {
+public class SinglePageConverter extends ConverterParams implements PageConverter {
 
     @Override
     public boolean convert() {
