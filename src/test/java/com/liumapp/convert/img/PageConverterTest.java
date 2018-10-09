@@ -2,6 +2,8 @@ package com.liumapp.convert.img;
 
 import com.liumapp.convert.img.service.AllPageConverter;
 import com.liumapp.convert.img.service.SinglePageConverter;
+import com.liumapp.qtools.file.basic.FileTool;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -17,16 +19,19 @@ public class PageConverterTest {
     private String dataPath = "/usr/local/tomcat/project/convert-pdf-to-img/data/";
 
     @Test
-    public void convertSinglePage () {
+    public void convertSinglePage () throws Exception {
         SinglePageConverter singlePageConverter = new SinglePageConverter();
         singlePageConverter.setSourcePdfPath(dataPath + "/pdf/test.pdf");
         singlePageConverter.setOutputPath(dataPath + "/pic/first/");
-        singlePageConverter.setPageNumber(0);
-        singlePageConverter.convert();
+        singlePageConverter.setPageNumber(0);// 0 is the first page
+        if (singlePageConverter.convert()) {
+            System.out.println("savename is : " + singlePageConverter.getSaveName());
+        }
+        Assert.assertEquals(true, FileTool.isFileExists(dataPath + "/pic/first/" + singlePageConverter.getSaveName()));
     }
 
     @Test
-    public void convertAllPage () {
+    public void convertAllPage () throws Exception {
         AllPageConverter allPageConverter = new AllPageConverter();
         allPageConverter.setSourcePdfPath(dataPath + "/pdf/test.pdf");
         allPageConverter.setOutputPath(dataPath + "/pic/all/");
