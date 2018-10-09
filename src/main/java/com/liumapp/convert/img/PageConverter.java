@@ -10,6 +10,6 @@ package com.liumapp.convert.img;
  */
 public interface PageConverter {
 
-    public boolean convert ();
+    public boolean convert () throws Exception;
 
 }

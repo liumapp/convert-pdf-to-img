@@ -2,7 +2,7 @@ package com.liumapp.convert.img.service;
 
 import com.liumapp.convert.img.PageConverter;
 import com.liumapp.convert.img.config.ConverterParams;
-
+import org.icepdf.core.pobjects.Document;
 /**
  * file SinglePageConverter.java
  * author liumapp
@@ -19,7 +19,11 @@ public class SinglePageConverter extends ConverterParams implements PageConverte
     }
 
     @Override
-    public boolean convert() {
+    public boolean convert() throws Exception {
+        Document document = new Document();
+        document.setFile(this.sourcePdfPath);
+
+
         return false;
     }
 

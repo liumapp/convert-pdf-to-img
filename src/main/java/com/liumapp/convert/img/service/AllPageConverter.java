@@ -14,7 +14,7 @@ import com.liumapp.convert.img.config.ConverterParams;
 public class AllPageConverter extends ConverterParams implements PageConverter {
 
     @Override
-    public boolean convert() {
+    public boolean convert() throws Exception {
         return false;
     }
 
